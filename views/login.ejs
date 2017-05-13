@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<title>froum登录</title>
+	<link rel='stylesheet' href='/stylesheets/login.css' />
+</head>
+<body>
+	
+	<div class="main">
+		<header>
+			<img src="/images/logo.png"/>
+			<h1>Sign in to Forum</h1>
+		</header>
+		<form id="form">
+			<p>Input your email address</p>
+			<input type="email" id="email" required="required" name="email"/>
+			<p><span>Password</span><span class="right"><a href="">Forgot password?</a></span></p>		
+			<input type="password" id="password" name="password" required="required"  minlength="6" maxlength="20" pattern="^[0-9a-zA-Z]*$" />
+			<p id="title"></p>
+			<input type="submit" id="submit" value="Sign in" />		
+		</form>
+		<p class="footer">New to Forum? &nbsp;<a href="/register">Sign in Forum.</a></p>
+		<ul>
+			<li><a href="">首页</a></li>
+			<li><a href="">热门</a></li>
+			<li><a href="">话题</a></li>
+			<li><a href="">关于</a></li>
+		</ul>
+	</div>
+
+</body>
+<script type="text/javascript" src="/javascripts/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.base64.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.cookie.js"></script>
+
+<script type="text/javascript">
+(function($){
+	$.getUrlParam
+	 = function(name)
+	{
+	var reg
+	 = new RegExp("(^|&)"+
+	 name +"=([^&]*)(&|$)");
+	var r
+	 = window.location.search.substr(1).match(reg);
+	if (r!=null) return unescape(r[2]); return null;
+	}
+})(jQuery);
+
+var $email = $("#email");
+var $passworld = $("#password");
+var $title = $("#title");
+	
+$("#form").submit(function(event){
+	$.ajax({
+		url: "/login",
+		type: "post",
+		data: {email: $email.val(), password: $.base64.btoa($passworld.val())},
+		success: function(data){
+			if(!data)
+			{
+				$title.html("服务器宕机啦");
+				return setTimeout(function(){$title.html("");},3000);
+			}
+			if(data.err)
+			{
+				$title.html(data.result);
+				return setTimeout(function(){$title.html("");},3000);
+			}
+			var action = $.getUrlParam('action');
+			$.cookie("forum_id",data["result"]["login_id"]);
+			$.cookie("forum_name",data["result"]["login_name"]);
+			$.cookie("forum_email",data["result"]["login_email"]);
+			$.cookie("forum_token",data["result"]["login_token"]);
+			if(!action || action == "http://127.0.0.1:32000/login")
+			{			
+				location.href = "/";
+			}
+			else{
+				var forumkey = data["result"]["login_token"];
+				location = action + "?forumkey=" + forumkey;
+			}
+
+
+		}
+	})
+	 event.preventDefault();
+})
+
+
+</script>
+
+
+
+</html>

@@ -1,0 +1,119 @@
+html,body,div,header,ul,li,p,a,h1,input,button,img{
+	margin: 0;
+	padding: 0;
+	border: none;
+	font-family: 'Microsoft YaHei';
+}
+body{
+	background-color: #252A30;
+}
+header{
+	height: 80px;
+	margin-bottom: 120px;
+}
+header img{
+	height: 40px;
+	margin-top: 20px;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	color: #fff;
+}
+.main{
+	width: 960px;
+	margin: 0 auto;
+}
+.right{
+	float: right;
+}
+.left{
+	float: left;
+}
+.link{
+	height: 100%;
+	float: left;
+}
+.link li{
+	float: left;
+	height: 100%;
+	width: 100px;
+	text-align: center;
+	line-height: 80px;
+	font-size: 1rem;
+	color: #fff;
+}
+header p.right{
+	height: 100%;
+	line-height: 80px;
+	color: #586056;
+}
+header p.right a{
+	font-weight: bold;
+	color: #fff;
+}
+header p.right a:hover{
+	text-decoration: underline;
+}
+.font{
+	color: #fff;
+	width: 560px;
+}
+.font h1{
+	font-size: 3.7rem;
+	font-weight: 100;
+}
+.font p{
+	color: #93A9AC;
+	line-height: 30px;
+}
+.form{
+	width: 330px;
+	height: 200px;
+}
+.form input{
+	height: 43px;
+	width: 320px;
+	border-radius: 3px;
+	padding-left: 10px;
+	font-size: 0.9rem;
+	margin-top: 22px;
+}
+.form p{
+	font-size: 0.7rem;
+	color: #93AAA5;
+	margin-top: 5px;
+}
+.form button{
+	width: 330px;
+	height: 43px;
+	background-color: #DB6413;
+	color: #fff;
+	border-radius: 3px;
+	margin-top: 20px;
+	font-size: 1rem;
+}
+.form button:hover{
+	font-weight: bold;
+}
+.form p.center{
+	text-align: center;
+}
+.emailbackFont{
+	text-align: center;
+	color: #fff;
+	font-size: 1.2rem;
+	margin-bottom: 20px;
+}
+.time{
+	text-align: center;
+	font-size: 1rem;
+	color: #fff;
+}
+#time{
+	text-align: center;
+	color: #DB6413;
+	font-size: 3rem;
+}

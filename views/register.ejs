@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<title>froum注册</title>
+	<link rel='stylesheet' href='/stylesheets/register.css' />
+</head>
+<body>
+	
+	<div class="main">
+		<header>
+			<img class="left" src="/images/logo.jpg"/>
+			<ul class="link">
+				<li><a href="">首页</a></li>
+				<li><a href="">话题</a></li>
+				<li><a href="">热门</a></li>
+			</ul>
+			<p class="right">
+				<a href="/register">Sign in</a> or <a href="/login">Sign up</a>
+			</p>
+		</header>
+
+		<div class="left font">
+			<h1>Welcome to<br/>Forum</h1>
+			<p>Welcome to Forum, where you can speak freely and discuss topics of interest to you. Here you can find their own happiness and friends, whether it is learning, research or entertainment. Hurry up and join it. Now you can complete the registration with only one step.</p>
+		</div>
+		<form class="form right" action="/register/sendemail" method="post">
+			<input type="email" required="required" id="email" name="email" placeholder="Your email adress">
+			<input type="text" required="required" minlength="3" maxlength="15" id="name" name="name" placeholder="Pick a name">	
+			<input type="password" required="required"  minlength="6" maxlength="20" pattern="^[0-9a-zA-Z]*$" id="password" name="password" placeholder="Create your password">	
+			<p id="pfont">Use at least one letter, one numeral, and seven characters.</p>
+			<button id="submit" type="submit">Sign up in Forum</button>
+			<p class="center">When you click on the 'Sign up in Forum', you will receive the system automatically send e-mail, you simply click on the link in the message to complete the registration.</p>
+		</form>
+
+	</div>
+
+</body>
+<script type="text/javascript" src="/javascripts/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.base64.js"></script>
+<script type="text/javascript">
+	var $email = $("#email");
+	var $pfont = $("#pfont");
+	var $submit = $("#submit");
+	var $name = $("#name");
+	var $password = $("#password");
+	$email.blur(function(){
+		$.ajax({
+			url: "/register/existbyemail",
+			type: "get",
+			data: {email: $email.val()},
+			success: function(data){
+				if(data && !data.err)
+					if(!data.result)
+					{
+
+						$pfont.html("邮件地址已注册，请更换邮箱或直接登录");
+						$pfont.css("color","#F92672");
+						return $email.val("");
+
+					}
+				$pfont.css("color","#93AAA5");
+				$pfont.html("Use at least one letter, one numeral, and seven characters.");
+			}
+		});
+	});
+
+	$name.blur(function(){
+		$.ajax({
+			url: "/register/existbyname",
+			type: "get",
+			data: {name: $name.val()},
+			success: function(data){
+				if(data && !data.err)
+					if(!data.result)
+					{
+						$pfont.html("该昵称已注册，请更换昵称");
+						$pfont.css("color","#F92672");
+						return  $name.val("");
+					}
+				$pfont.css("color","#93AAA5");
+				$pfont.html("Use at least one letter, one numeral, and seven characters.");
+				
+			}
+		});
+	});
+	$submit.click(function(){
+		var _psw = $password.val();
+		$password.val($.base64.btoa(_psw)); 
+	})
+
+
+
+</script>
+
+
+
+</html>

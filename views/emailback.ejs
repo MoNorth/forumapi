@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<title>froum注册</title>
+	<link rel='stylesheet' href='/stylesheets/register.css' />
+</head>
+<body>
+	<div class="main">
+		<header>
+			<img class="left" src="/images/logo.jpg"/>
+			<ul class="link">
+				<li><a href="">首页</a></li>
+				<li><a href="">话题</a></li>
+				<li><a href="">热门</a></li>
+			</ul>
+			<p class="right">
+				<a href="">Sign in</a> or <a href="">Sign up</a>
+			</p>
+		</header>
+
+		<p class="emailbackFont">
+			<%= message %>
+		</p>
+		<p class="time">五秒后主动跳转至注册/登录界面</p>
+		<p id="time">5</p>
+
+	</div>
+</body>
+<script type="text/javascript">
+	var $time = document.getElementById('time');
+	var _time = 5;
+	setInterval(function(){
+		if(_time != 0)
+		{
+			_time--;
+			$time.innerHTML = _time;
+		}
+		else
+			location.href = "<%= href %>";
+	},1000)
+
+</script>
+</html>
